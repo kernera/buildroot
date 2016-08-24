@@ -1,0 +1,29 @@
+#!/bin/sh
+#
+# Setting up DSA interfaces...
+#
+
+mac_byte () { ip link show eth0 | awk '/ether/ { print $2 }' | cut -d: -f$1 | sed 's,^0*,,' ; }
+rev () { mac_byte 5 ; }
+id () { mac_byte 6 ; }
+
+case "$1" in
+  start)
+    echo "Starting DSA network on ZII Rev $(rev) ID $(id)..."
+    ip link set up dev eth1
+    ;;
+  stop)
+    echo "Stopping DSA network on ZII Rev $(rev) ID $(id)..."
+    ip link set down dev eth1
+    ;;
+  restart|reload)
+    "$0" stop
+    "$0" start
+    ;;
+  *)
+    echo "Usage: $0 {start|stop|restart}"
+    exit 1
+esac
+
+exit $?
+

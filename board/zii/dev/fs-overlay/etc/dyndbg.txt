@@ -1,0 +1,8 @@
+file drivers/net/dsa/mv88e6xxx/*.c +p
+func mv88e6xxx_read =_
+func mv88e6xxx_write =_
+func mv88e6xxx_g1_vtu_prob_irq_thread_fn =_
+
+file net/bridge/*.c +p
+
+file net/dsa/*.c +p
